@@ -142,9 +142,14 @@ app.post('/table', function(req, res){
       }
 
       
-      for (var l = 0; l < bodyJson.lesson.length; l++) {
-        var tmpLesson = bodyJson.lesson[l];
+      for (var i = 0; i < bodyJson.lesson.length; i++) {
+        var tmpLesson = bodyJson.lesson[i];
         json[tmpLesson['期']][tmpLesson['曜日']][tmpLesson['時限']] = tmpLesson;
+        if ( tmpLesson['期間'] == "通年" ) {
+          for ( var j = 0; j < ki.length; j++) {
+            json[ki[j]][tmpLesson['曜日']][tmpLesson['時限']] = tmpLesson;
+          }
+        }
       }
 
       res.write(JSON.stringify(json))
