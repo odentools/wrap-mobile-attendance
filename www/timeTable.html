@@ -18,7 +18,6 @@
        return;
      }
      $("table").remove();
-     console.log("aaaaa");
      var table = $('<table>');
 
      var selectKi = $("#example").val();
@@ -101,8 +100,8 @@
          },
            error : function(data) {
            // Error
-           alert("error");
-           alert(JSON.stringify(data));
+           //alert("error");
+           //alert(JSON.stringify(data));
            $("#response").html(JSON.stringify(data));
          }
        });
