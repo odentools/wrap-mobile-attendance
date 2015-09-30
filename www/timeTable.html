@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+  <style type="text/css">
+   table, td, th {
+     border: 1px #000000 solid;
+   }
+  </style>
+  <script type="text/javascript">
+   var tableData = "";
+   var weekly = ["月曜日", "火曜日", "水曜日", "木曜日", "金曜日"];
+   var period = ["1", "2", "3", "4", "5"];
+
+   function createTable() {
+     if(tableData == "") {
+       return;
+     }
+     $("table").remove();
+     console.log("aaaaa");
+     var table = $('<table>');
+
+     var selectKi = $("#example").val();
+
+     var th = $('<tr>');
+     for (var i = 0; i < weekly.length; i++) {
+       th.append('<th>'+weekly[i]+'</th>');
+     }
+     table.append($('<thead>').append(th));
+
+     var tbody = $('<tbody>');
+
+     for ( var i = 0; i < period.length; i++) {
+       var tr = $('<tr>');
+       for ( var j = 0; j < weekly.length; j++) {
+         var lesson = tableData[selectKi][weekly[j]][period[i]];
+         var td = $('<td>');
+         if ( Object.keys(lesson).length != 0) {
+           td.append($("<div/>").append(lesson['履修科目']));
+           if ( lesson['欠'] == '1') {
+             td.css('background-color', '#F5F5F5');
+           } else if ( lesson['欠'] == '2') {
+             td.css('background-color', '#FFFACD');
+           } else if ( lesson['欠'] == '3') {
+             td.css('background-color', '#FFC0CB');
+           } else if ( lesson['欠'] == '4') {
+             td.css('background-color', '#FF6347');
+           } else if ( parseInt(lesson['欠']) > 4) {
+             td.css('background-color', '#C0C0C0');
+           }
+         }
+         tr.append(td);
+       }
+       tbody.append(tr);
+     }
+     table.append(tbody);
+     $("body").append(table);
+     $('td').click(function(){
+       var row = $(this).closest('tr').index();
+       var col = this.cellIndex;
+       var lesson = tableData[selectKi][weekly[col]][period[row]];
+       var str = "";
+       for ( var key in lesson) {
+         str += key + ":" + lesson[key] + "\n";
+       }
+     });
+   }
+   $(function(){
+     $("#button").click( function(){
+       $("#response").html("loading...");
+       var url = $("#url_post").val();
+
+       var JSONdata = {
+         usr: { uid:$("#uid").val(), pass:$("#pass").val(), nendo:$("#nendo").val() },
+         refine:[
+           { key:$("#key1").val(), val:$("#val1").val(), com: $("#com1").val()},
+           { key:$("#key2").val(), val:$("#val2").val(), com: $("#com2").val()},
+           { key:$("#key3").val(), val:$("#val3").val(), com: $("#com3").val()},
+           { key:$("#key4").val(), val:$("#val4").val(), com: $("#com4").val()},
+           { key:$("#key5").val(), val:$("#val5").val(), com: $("#com5").val()},
+         ]
+       };
+
+       $.ajax({
+           type : 'post',
+           url : 'http://localhost:8080/table',
+           data : JSON.stringify(JSONdata),
+           contentType: 'application/JSON',
+           dataType : 'JSON',
+           scriptCharset: 'utf-8',
+           success : function(data) {
+           // Success
+             tableData = data;
+             $("#response").html(JSON.stringify(data));
+
+             createTable();
+         },
+           error : function(data) {
+           // Error
+           alert("error");
+           alert(JSON.stringify(data));
+           $("#response").html(JSON.stringify(data));
+         }
+       });
+     })
+   })
+
+   $(function($) {
+     $('#example').change(function() {
+       createTable();
+     });
+   });
+  </script>
+
+ </head>
+ <body>
+  <p>
+   uid<input type="text" id="uid" name="url" size="30" value="ht12a101">
+   pass<input type="text" id="pass" size="30" value="0067">
+   nendo<input type="text" id="nendo" size="30" value="2015">
+  </p>
+
+  <p>
+   key1<input type="text" id="key1" size="30" value="期">
+   val1<input type="text" id="val1" size="30" value="前期">
+   com1<input type="text" id="com1" size="30" value="">
+  </p>
+
+  <p>
+   key2<input type="text" id="key2" size="30" value="曜日">
+   val2<input type="text" id="val2" size="30" value="水曜日">
+   com2<input type="text" id="com2" size="30" value="">
+  </p>
+
+  <p>
+   key3<input type="text" id="key3" size="30" value="">
+   val3<input type="text" id="val3" size="30" value="">
+   com3<input type="text" id="com3" size="30" value="">
+  </p>
+
+  <p>
+   key4<input type="text" id="key4" size="30" value="">
+   val4<input type="text" id="val4" size="30" value="">
+   com4<input type="text" id="com4" size="30" value="">
+  </p>
+
+  <p>
+   key5<input type="text" id="key5" size="30" value="">
+   val5<input type="text" id="val5" size="30" value="">
+   com5<input type="text" id="com5" size="30" value="">
+  </p>
+
+  <p>
+   <select name="example" id="example" size="1">
+    <option value="前期">前期</option>
+    <option value="後期">後期</option>
+   </select>
+   <button id="button" type="button">submit</button>
+  </p>
+
+  <p><textarea id="response" cols=120 rows=20 disabled></textarea></p>
+ </body>
+</html>
