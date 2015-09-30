@@ -141,13 +141,14 @@ app.post('/table', function(req, res){
       json[ki[i]] = tmpKi;
       }
 
-      
-      for (var i = 0; i < bodyJson.lesson.length; i++) {
-        var tmpLesson = bodyJson.lesson[i];
-        json[tmpLesson['期']][tmpLesson['曜日']][tmpLesson['時限']] = tmpLesson;
-        if ( tmpLesson['期間'] == "通年" ) {
-          for ( var j = 0; j < ki.length; j++) {
-            json[ki[j]][tmpLesson['曜日']][tmpLesson['時限']] = tmpLesson;
+      if ( bodyJson.info != null) {
+        for (var i = 0; i < bodyJson.lesson.length; i++) {
+          var tmpLesson = bodyJson.lesson[i];
+          json[tmpLesson['期']][tmpLesson['曜日']][tmpLesson['時限']] = tmpLesson;
+          if ( tmpLesson['期間'] == "通年" ) {
+            for ( var j = 0; j < ki.length; j++) {
+              json[ki[j]][tmpLesson['曜日']][tmpLesson['時限']] = tmpLesson;
+            }
           }
         }
       }
