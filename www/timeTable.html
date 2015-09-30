@@ -56,6 +56,7 @@
      }
      table.append(tbody);
      $("body").append(table);
+
      $('td').click(function(){
        var row = $(this).closest('tr').index();
        var col = this.cellIndex;
@@ -64,7 +65,9 @@
        for ( var key in lesson) {
          str += key + ":" + lesson[key] + "\n";
        }
+       $("#response").html(str);
      });
+
    }
    $(function(){
      $("#button").click( function(){
@@ -116,20 +119,20 @@
  </head>
  <body>
   <p>
-   uid<input type="text" id="uid" name="url" size="30" value="ht12a101">
-   pass<input type="text" id="pass" size="30" value="0067">
+   uid<input type="text" id="uid" name="url" size="30" value="ht12a000">
+   pass<input type="text" id="pass" size="30" value="0000">
    nendo<input type="text" id="nendo" size="30" value="2015">
   </p>
 
   <p>
-   key1<input type="text" id="key1" size="30" value="期">
-   val1<input type="text" id="val1" size="30" value="前期">
+   key1<input type="text" id="key1" size="30" value="">
+   val1<input type="text" id="val1" size="30" value="">
    com1<input type="text" id="com1" size="30" value="">
   </p>
 
   <p>
-   key2<input type="text" id="key2" size="30" value="曜日">
-   val2<input type="text" id="val2" size="30" value="水曜日">
+   key2<input type="text" id="key2" size="30" value="">
+   val2<input type="text" id="val2" size="30" value="">
    com2<input type="text" id="com2" size="30" value="">
   </p>
 
