@@ -23,71 +23,55 @@ app.post('/refine', function(req, res){
     if (!error && response.statusCode == 200) {
       json = body;
       if( req.body.refine != null && json.lesson != null){
-        G:for (var i = 0; i < json.lesson.length; i++){
-          for (var j = 0; j < req.body.refine.length; j++) {
-            switch(req.body.refine[j]['com']){
+        for (var i = 0; i < req.body.refine.length; i++){
+          for (var j = 0; j < json.lesson.length; j++) {
+            switch(req.body.refine[i]['com']){
               case('=='):
-                if (json.lesson[i][req.body.refine[j]['key']] != req.body.refine[j]['val']){
-                  json.lesson.splice(i,1);
-                  i--;
-                  continue G;
+                if (json.lesson[j][req.body.refine[i]['key']] != req.body.refine[i]['val']){
+                  json.lesson.splice(j,1);
                 }
                 break;
 
               case('!='):
-                if (json.lesson[i][req.body.refine[j]['key']] == req.body.refine[j]['val']){
-                  json.lesson.splice(i,1);
-                  i--;
-                  continue G;
+                if (json.lesson[j][req.body.refine[i]['key']] == req.body.refine[i]['val']){
+                  json.lesson.splice(j,1);
                 }
                 break;
 
               case('in'):
-                if (json.lesson[i][req.body.refine[j]['key']].indexOf(req.body.refine[j]['val'] ) == -1){
-                  json.lesson.splice(i,1);
-                  i--;
-                  continue G;
+                if (json.lesson[j][req.body.refine[i]['key']].indexOf(req.body.refine[i]['val'] ) == -1){
+                  json.lesson.splice(j,1);
                 }
                 break;
 
               case('!in'):
-                if (json.lesson[i][req.body.refine[j]['key']].indexOf(req.body.refine[j]['val'] ) != -1){
-                  json.lesson.splice(i,1);
-                  i--;
-                  continue G;
+                if (json.lesson[j][req.body.refine[i]['key']].indexOf(req.body.refine[i]['val'] ) != -1){
+                  json.lesson.splice(j,1);
                 }
                 break;
 
               case('=>'):
               case('>='):
-                if (parseInt(json.lesson[i][req.body.refine[j]['key']]) <= parseInt(req.body.refine[j]['val'])){
-                  json.lesson.splice(i,1);
-                  i--;
-                  continue G;
+                if (parseInt(json.lesson[j][req.body.refine[i]['key']]) <= parseInt(req.body.refine[i]['val'])){
+                  json.lesson.splice(j,1);
                 }
                 break;
 
               case('=<'):
               case('<='):
-                if (parseInt(json.lesson[i][req.body.refine[j]['key']]) >= parseInt(req.body.refine[j]['val'])){
-                  json.lesson.splice(i,1);
-                  i--;
-                  continue G;
+                if (parseInt(json.lesson[j][req.body.refine[i]['key']]) >= parseInt(req.body.refine[i]['val'])){
+                  json.lesson.splice(j,1);
                 }
                 break;
 
               case('>'):
-                if (parseInt(json.lesson[i][req.body.refine[j]['key']]) < parseInt(req.body.refine[j]['val'])){
-                  json.lesson.splice(i,1);
-                  i--;
-                  continue G;
+                if (parseInt(json.lesson[j][req.body.refine[i]['key']]) < parseInt(req.body.refine[i]['val'])){
+                  json.lesson.splice(j,1);
                 }
                 break;
               case('<'):
-                if (parseInt(json.lesson[i][req.body.refine[j]['key']]) > parseInt(req.body.refine[j]['val'])){
-                  json.lesson.splice(i,1);
-                  i--;
-                  continue G;
+                if (parseInt(json.lesson[j][req.body.refine[i]['key']]) > parseInt(req.body.refine[i]['val'])){
+                  json.lesson.splice(j,1);
                 }
                 break;
               default:
