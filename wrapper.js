@@ -29,24 +29,28 @@ app.post('/refine', function(req, res){
               case('=='):
                 if (json.lesson[j][req.body.refine[i]['key']] != req.body.refine[i]['val']){
                   json.lesson.splice(j,1);
+                  j--;
                 }
                 break;
 
               case('!='):
                 if (json.lesson[j][req.body.refine[i]['key']] == req.body.refine[i]['val']){
                   json.lesson.splice(j,1);
+                  j--;
                 }
                 break;
 
               case('in'):
                 if (json.lesson[j][req.body.refine[i]['key']].indexOf(req.body.refine[i]['val'] ) == -1){
                   json.lesson.splice(j,1);
+                  j--;
                 }
                 break;
 
               case('!in'):
                 if (json.lesson[j][req.body.refine[i]['key']].indexOf(req.body.refine[i]['val'] ) != -1){
                   json.lesson.splice(j,1);
+                  j--;
                 }
                 break;
 
@@ -54,6 +58,7 @@ app.post('/refine', function(req, res){
               case('>='):
                 if (parseInt(json.lesson[j][req.body.refine[i]['key']]) <= parseInt(req.body.refine[i]['val'])){
                   json.lesson.splice(j,1);
+                  j--;
                 }
                 break;
 
@@ -61,17 +66,20 @@ app.post('/refine', function(req, res){
               case('<='):
                 if (parseInt(json.lesson[j][req.body.refine[i]['key']]) >= parseInt(req.body.refine[i]['val'])){
                   json.lesson.splice(j,1);
+                  j--;
                 }
                 break;
 
               case('>'):
                 if (parseInt(json.lesson[j][req.body.refine[i]['key']]) < parseInt(req.body.refine[i]['val'])){
                   json.lesson.splice(j,1);
+                  j--;
                 }
                 break;
               case('<'):
                 if (parseInt(json.lesson[j][req.body.refine[i]['key']]) > parseInt(req.body.refine[i]['val'])){
                   json.lesson.splice(j,1);
+                  j--;
                 }
                 break;
               default:
