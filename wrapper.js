@@ -22,7 +22,15 @@ app.post('/refine', function(req, res){
   request.get(options, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       json = body;
-      if( req.body.refine != null && json.lesson != null){
+
+      if ( req.body.refine != null && json.lesson != null) {
+
+        // データ追加
+        for (var i = 0; i < json.lesson.length; i++) {
+          json.lesson[i]['欠席'] = parseInt(json.lesson[i]['欠']) + parseInt(json.lesson[i]['不']) + (parseInt(json.lesson[i]['遅']) +  parseInt(json.lesson[i]['早'])) / 2;
+        }
+
+        // 絞り込み
         for (var i = 0; i < req.body.refine.length; i++){
           for (var j = 0; j < json.lesson.length; j++) {
             switch(req.body.refine[i]['com']){

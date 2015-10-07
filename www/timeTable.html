@@ -37,16 +37,17 @@
          var td = $('<td>');
          if ( Object.keys(lesson).length != 0) {
            td.append($("<div/>").append(lesson['履修科目']));
-           if ( lesson['欠'] == '1') {
-             td.css('background-color', '#F5F5F5');
-           } else if ( lesson['欠'] == '2') {
-             td.css('background-color', '#FFFACD');
-           } else if ( lesson['欠'] == '3') {
-             td.css('background-color', '#FFC0CB');
-           } else if ( lesson['欠'] == '4') {
-             td.css('background-color', '#FF6347');
-           } else if ( parseInt(lesson['欠']) > 4) {
+
+           if ( parseInt(lesson['欠席']) >= 5) {
              td.css('background-color', '#C0C0C0');
+           } else if ( parseInt(lesson['欠席']) >= 4) {
+             td.css('background-color', '#FF6347');
+           } else if ( parseInt(lesson['欠席']) >= 3) {
+             td.css('background-color', '#FFC0CB');
+           } else if ( parseInt(lesson['欠席']) >= 2) {
+             td.css('background-color', '#FFFACD');
+           } else if ( parseInt(lesson['欠席']) >= 1) {
+             td.css('background-color', '#F5F5F5');
            }
          }
          tr.append(td);
