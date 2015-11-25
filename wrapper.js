@@ -7,6 +7,8 @@ var app = express();
 app.use(bodyParser());
 app.use(express.static('www'));
 
+app.listen(process.env.PORT || 8080);
+
 app.post('/refine', function(req, res){
   res.writeHead(200, {"Content-Type": "text/html","Access-Control-Allow-Origin":"*"});
 
@@ -161,5 +163,3 @@ app.post('/table', function(req, res){
     }
   })
 });
-
-app.listen(8080);
