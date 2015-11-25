@@ -1,0 +1,26 @@
+{
+  "name": "wrap-mobile-attendance",
+  "version": "0.0.0",
+  "description": "",
+  "main": "wrapper.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon wrapper.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/odentools/wrap-mobile-attendance.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/odentools/wrap-mobile-attendance/issues"
+  },
+  "homepage": "https://github.com/odentools/wrap-mobile-attendance",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "nodemon": "^1.8.1",
+    "request": "^2.67.0"
+  }
+}
